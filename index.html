@@ -243,77 +243,611 @@
     const questions = {
       introduction: [
         {
-          question: "What is something small that reliably makes your day better?"
+          question: "Tell me about a memorable concert/play/live performance that you've attended.",
         },
         {
-          question: "What is a hobby or interest you wish more people asked you about?"
+          question: "Tell me about an interesting travel/vacation experience that you've had.",
         },
         {
-          question: "What is your ideal low-key weekend?"
+          question: "Tell me about a \"first\" in your life.",
+          aux: "For example: first job, first car, first apartment, first kiss.",
         },
         {
-          question: "What food could you happily eat several days in a row?"
+          question: "What is your favorite way to spend a lazy Sunday?",
         },
         {
-          question: "What is a place you have visited that you would recommend to almost anyone?"
-        }
+          question: "What is a small luxury that makes your day better?",
+        },
+        {
+          question: "What kind of place makes you feel instantly relaxed?",
+        },
+        {
+          question: "What is a city or town you've visited that surprised you in a good way?",
+        },
+        {
+          question: "What is something you enjoy doing that other people sometimes find boring?",
+        },
+        {
+          question: "What is your go-to order at a coffee shop, smoothie place, or breakfast spot?",
+        },
+        {
+          question: "What is a movie, show, or book that you can always rewatch or reread?",
+        },
+        {
+          question: "What kind of music puts you in a good mood?",
+        },
+        {
+          question: "What is your favorite thing to do when the weather is perfect?",
+        },
+        {
+          question: "What is your favorite way to cool off on a really hot day?",
+        },
+        {
+          question: "What is a beach-day essential for you?",
+        },
+        {
+          question: "What is a food you used to dislike but now enjoy?",
+        },
+        {
+          question: "What is one place you would take someone who was visiting Southwest Florida for the first time?",
+        },
+        {
+          question: "What is something you are surprisingly good at?",
+        },
+        {
+          question: "What is something you are hilariously bad at?",
+        },
+        {
+          question: "What is your favorite season, even if Florida doesn't fully cooperate?",
+        },
+        {
+          question: "What is a household chore you don't mind doing?",
+        },
+        {
+          question: "What is a household chore you would happily never do again?",
+        },
+        {
+          question: "What is your favorite type of restaurant atmosphere?",
+          aux: "For example: casual waterfront, quiet and cozy, lively and social, upscale, hole-in-the-wall.",
+        },
+        {
+          question: "What is something you like to have planned in advance?",
+        },
+        {
+          question: "What is something you prefer to do spontaneously?",
+        },
+        {
+          question: "What is a simple thing that usually puts you in a better mood?",
+        },
+        {
+          question: "What is your favorite way to spend time outside?",
+        },
+        {
+          question: "What is a vacation activity you almost always enjoy?",
+        },
+        {
+          question: "What is something you like about where you live now?",
+        },
+        {
+          question: "What is a place you have lived or spent time that shaped you in some way?",
+        },
+        {
+          question: "What is your favorite kind of dessert?",
+        },
+        {
+          question: "What is your ideal morning routine?",
+        },
+        {
+          question: "What is your ideal evening routine?",
+        },
+        {
+          question: "What is something you wish you had more time for?",
+        },
+        {
+          question: "What is something you are trying to get better at?",
+        },
+        {
+          question: "What is an app on your phone that you actually find useful?",
+        },
+        {
+          question: "What is something you like learning about, even casually?",
+        },
+        {
+          question: "What is your favorite kind of live event to attend?",
+          aux: "For example: concerts, comedy shows, sports, theater, festivals, lectures.",
+        },
+        {
+          question: "What is something you enjoy doing with friends?",
+        },
+        {
+          question: "What is something you enjoy doing alone?",
+        },
+        {
+          question: "What is a smell that reminds you of something good?",
+        },
+        {
+          question: "What is your favorite kind of road trip stop?",
+        },
+        {
+          question: "What is a type of food you almost never get tired of?",
+        },
+        {
+          question: "What is something you like about your current stage of life?",
+        },
+        {
+          question: "What is a small habit or routine that keeps you grounded?",
+        },
+        {
+          question: "What is something you are pickier about than most people?",
+        },
+        {
+          question: "What is a skill you would love to casually have, without needing to become an expert?",
+        },
+        {
+          question: "What is a topic you could talk about for 20 minutes without preparing?",
+        },
+        {
+          question: "What is your favorite kind of water activity?",
+          aux: "For example: swimming, boating, kayaking, paddleboarding, fishing, floating, or just sitting near the water.",
+        },
+        {
+          question: "What is something you like to do when you have the house completely to yourself?",
+        },
+        {
+          question: "What is a store you enjoy browsing even when you don't need anything?",
+        },
+        {
+          question: "What is your favorite way to celebrate a small win?",
+        },
+        {
+          question: "What is something you think makes a normal day feel a little more special?",
+        },
       ],
-
       tell_story: [
         {
+          question: "Tell me about a memorable concert/play/live performance that you've attended.",
+        },
+        {
+          question: "Tell me about an interesting travel/vacation experience that you've had.",
+        },
+        {
+          question: "Tell me about a \"first\" in your life.",
+          aux: "For example: first job, first car, first apartment, first kiss.",
+        },
+        {
+          question: "Tell me about an interesting place you've lived or spent a lot of time.",
+        },
+        {
+          question: "Tell me about a memorable day at the beach, lake, pool, or on the water.",
+        },
+        {
+          question: "Tell me about a fun trip you took that did not go exactly as planned.",
+        },
+        {
+          question: "Tell me about an interesting person you met while traveling.",
+        },
+        {
+          question: "Tell me about a time you tried a new food or drink and had a strong reaction to it.",
+          aux: "The reaction could have been positive or negative.",
+        },
+        {
+          question: "Tell me about a time you got caught in really bad weather.",
+        },
+        {
+          question: "Tell me about a funny or memorable moment from one of your jobs.",
+        },
+        {
+          question: "Tell me about a time you were pleasantly surprised by someone.",
+        },
+        {
+          question: "Tell me about a time you accidentally went to the wrong place, event, or meeting.",
+        },
+        {
+          question: "Tell me about a time you had to improvise.",
+        },
+        {
+          question: "Tell me about a memorable wedding, birthday party, or celebration you attended.",
+        },
+        {
+          question: "Tell me about a fun night out that stands out in your memory.",
+        },
+        {
           question: "Tell me about a time you got lost.",
-          aux: "Physically, emotionally, or in a very confusing parking garage."
+          aux: "Driving, walking, boating, traveling, or even inside a big building all count.",
         },
         {
-          question: "Tell me about a moment when a stranger was unexpectedly kind to you."
+          question: "Tell me about a time you learned something the hard way.",
         },
         {
-          question: "Tell me about a trip that did not go according to plan."
+          question: "Tell me about a time you surprised yourself.",
         },
         {
-          question: "Tell me about a time you surprised yourself."
+          question: "Tell me about an interesting class, lesson, workshop, or training you took.",
         },
         {
-          question: "Tell me about something funny that happened at work, school, or while traveling."
-        }
+          question: "Tell me about a memorable animal encounter.",
+          aux: "Pets, wildlife, zoo animals, or anything else counts.",
+        },
+        {
+          question: "Tell me about a memorable road trip.",
+        },
+        {
+          question: "Tell me about a time you made a spontaneous decision.",
+        },
+        {
+          question: "Tell me about an interesting date you've been on.",
+          aux: "It can be funny, sweet, awkward, or just memorable.",
+        },
+        {
+          question: "Tell me about a time you helped someone, or someone helped you.",
+        },
+        {
+          question: "Tell me about a time you had a lucky break.",
+        },
+        {
+          question: "Tell me about a time you were embarrassed, but can laugh about it now.",
+        },
+        {
+          question: "Tell me about a memorable holiday or family tradition.",
+        },
+        {
+          question: "Tell me about a time you tried a hobby, sport, or activity for the first time.",
+        },
+        {
+          question: "Tell me about an interesting concert, show, comedy night, or live performance you've attended.",
+        },
+        {
+          question: "Tell me about a time you had an unexpected conversation with a stranger.",
+        },
+        {
+          question: "Tell me about a time you fixed something, built something, or solved a practical problem.",
+        },
+        {
+          question: "Tell me about a time your plans changed at the last minute.",
+        },
+        {
+          question: "Tell me about a memorable experience with kids in your family or friend group.",
+          aux: "Nieces, nephews, your own kids, students, or friends’ kids all count.",
+        },
+        {
+          question: "Tell me about a time you moved homes, cities, or made a big change in your life.",
+        },
+        {
+          question: "Tell me about a time you were proud of how you handled something.",
+        },
+        {
+          question: "Tell me about a memorable airport or travel day experience.",
+        },
+        {
+          question: "Tell me about a time you had a great conversation with someone.",
+        },
+        {
+          question: "Tell me about a time you bought something that turned out to be surprisingly worth it.",
+        },
+        {
+          question: "Tell me about a time you bought something that was absolutely not worth it.",
+        },
+        {
+          question: "Tell me about a time you cooked something, baked something, or attempted to.",
+        },
+        {
+          question: "Tell me about a time you hosted people or had guests stay with you.",
+        },
+        {
+          question: "Tell me about an interesting experience you had on or near the water.",
+          aux: "Boating, kayaking, fishing, paddleboarding, swimming, or just being near the coast all count.",
+        },
+        {
+          question: "Tell me about a time you found a great hidden gem.",
+          aux: "A restaurant, park, shop, beach spot, event, or anything else.",
+        },
+        {
+          question: "Tell me about a time you had to be brave, even in a small way.",
+        },
+        {
+          question: "Tell me about a time technology failed you at the worst possible moment.",
+        },
+        {
+          question: "Tell me about a time you had a surprisingly good day that started out badly.",
+        },
+        {
+          question: "Tell me about a time you reconnected with someone after a long gap.",
+        },
+        {
+          question: "Tell me about a memorable compliment someone gave you.",
+        },
       ],
-
       fun_and_silly: [
         {
-          question: "If animals could talk, which animal do you think would be the rudest?"
+          question: "If you could adopt any animal in the world as a pet, which species would you choose?",
+          aux: "Imagine that the species has been domesticated, and money/space is not a problem.",
         },
         {
-          question: "Would you rather have to sing every time you entered a room or dance every time you left one?",
-          aux: "You may choose the song or dance style."
+          question: "If you could only have one condiment/sauce for the next year, which would it be?",
         },
         {
-          question: "What is a completely useless skill you would still enjoy mastering?"
+          question: "Who is your all time biggest celebrity crush?",
         },
         {
-          question: "If you had to compete in an Olympic sport tomorrow, which one would you choose?"
+          question: "If you could magically become fluent in any language, which one would you choose?",
         },
         {
-          question: "What is the most ridiculous thing you have a strong opinion about?"
-        }
+          question: "If you could view any thing/event in all of history, which event would you choose?",
+        },
+        {
+          question: "If there was another push to switch the US to the metric system, would you support it?",
+        },
+        {
+          question: "If you could magically become very skilled in any musical instrument, which one would you choose?",
+        },
+        {
+          question: "If you had a few months to prepare, would you rather do a 5 minute solo dance routine or a 5 minute stand up comedy set?",
+          aux: "You have to pick one, and it would be done in a room full of strangers.",
+        },
+        {
+          question: "What is an unimportant thing that you have a strong opinion about?",
+        },
+        {
+          question: "If you could instantly become amazing at one totally non-practical skill, what would you choose?",
+        },
+        {
+          question: "What is a small luxury that makes you happier than it probably should?",
+        },
+        {
+          question: "If your life had a theme song that played every time you walked into a room, what song would it be?",
+        },
+        {
+          question: "What food do you think you could eat way more often than most people without getting tired of it?",
+        },
+        {
+          question: "If you had to enter a low-stakes competition tomorrow, what would you have the best chance of winning?",
+          aux: "For example: trivia, karaoke, cornhole, parallel parking, folding laundry, or making guacamole.",
+        },
+        {
+          question: "What is something childish that you still genuinely enjoy?",
+        },
+        {
+          question: "If you could make one chore disappear forever, which one would you eliminate?",
+        },
+        {
+          question: "What is your most irrational but harmless fear?",
+        },
+        {
+          question: "If you had to be mildly famous for something silly, what would you want it to be?",
+        },
+        {
+          question: "What is a fashion trend from any era that you secretly kind of like?",
+        },
+        {
+          question: "If you could swap lives with any fictional character for one week, who would you choose?",
+        },
+        {
+          question: "What is one food combination that you love but other people might judge?",
+        },
+        {
+          question: "If you had to pick a personal mascot, what animal would represent you?",
+        },
+        {
+          question: "What is something you are weirdly competitive about?",
+        },
+        {
+          question: "If you could only use one condiment for the rest of your life, which one would you choose?",
+        },
+        {
+          question: "What is the most Florida thing you've personally seen or experienced?",
+        },
+        {
+          question: "If your personality were a weather forecast, what would it be today?",
+        },
+        {
+          question: "What is a movie or TV show that you can quote way too much?",
+        },
+        {
+          question: "If you could have a personal assistant for only one annoying task, what would you have them do?",
+        },
+        {
+          question: "What is something you enjoy that feels a little embarrassing to admit?",
+        },
+        {
+          question: "If you were forced to participate in a talent show, what would your act be?",
+        },
+        {
+          question: "What is a song that you will almost always sing along to?",
+        },
+        {
+          question: "If you could magically make yourself enjoy one activity you currently dislike, what would it be?",
+        },
+        {
+          question: "What is the most dramatic thing you do when you are only mildly inconvenienced?",
+        },
+        {
+          question: "If you had to open a tiny business that sold only one thing, what would you sell?",
+        },
+        {
+          question: "What is a smell that instantly puts you in a good mood?",
+        },
+        {
+          question: "If you could have any fictional vehicle, what would you choose?",
+          aux: "It can be from a movie, book, cartoon, video game, or anything else.",
+        },
+        {
+          question: "What is a very normal thing that you think you are unusually good at?",
+        },
+        {
+          question: "If you could rename yourself for one day, what name would you try out?",
+        },
+        {
+          question: "What is a snack that you have very little self-control around?",
+        },
+        {
+          question: "If you had to spend a full day dressed for one theme, what theme would you pick?",
+        },
+        {
+          question: "What is an object in your home that you would be oddly sad to lose?",
+        },
+        {
+          question: "If you could choose one animal to be able to talk to, which animal would you pick?",
+        },
+        {
+          question: "What is a phrase, saying, or word that you probably overuse?",
+        },
+        {
+          question: "If you had to plan a perfect lazy Sunday, what would be included?",
+        },
+        {
+          question: "What is a totally unnecessary thing you would buy if it were free?",
+        },
+        {
+          question: "If you could bring back one discontinued food, drink, toy, or product, what would it be?",
+        },
+        {
+          question: "What is a minor inconvenience that instantly tests your patience?",
+        },
+        {
+          question: "If you had to live inside one store for a week, which store would you choose?",
+        },
+        {
+          question: "What is something you are willing to be a little “high maintenance” about?",
+        },
+        {
+          question: "If you could instantly master one dance move, which one would it be?",
+        },
+        {
+          question: "What is a beach-day item that you think is absolutely essential?",
+        },
+        {
+          question: "What is something you loved as a kid that still holds up?",
+        },
+        {
+          question: "If you could make one animal tiny enough to safely carry around in your pocket, which animal would you choose?",
+        },
+        {
+          question: "What is your most oddly specific pet peeve?",
+        },
+        {
+          question: "If you had to eat dinner with one cartoon character, who would you choose?",
+        },
+        {
+          question: "What is something that always makes you feel like you have your life together?",
+        },
+        {
+          question: "If you could add one completely unnecessary room to your home, what kind of room would it be?",
+        },
       ],
-
       going_deep: [
         {
-          question: "What is something you have changed your mind about in the last few years?"
+          question: "How much do you usually keep up with old friends who don't live near you anymore?",
         },
         {
-          question: "What kind of person brings out the best in you?"
+          question: "Do you think that there is an afterlife?",
         },
         {
-          question: "What is something you are trying to get better at?"
+          question: "What is one thing you think that you would enjoy and one thing you would not enjoy about being the opposite gender?",
         },
         {
-          question: "What does a good relationship feel like to you?"
+          question: "How do you think you've most changed (non-physically) in the last 10 years?",
         },
         {
-          question: "What is a value you hope people notice in how you live?"
-        }
-      ]
+          question: "How do you usually know when you can really trust someone?",
+        },
+        {
+          question: "What is something you used to care a lot about that matters much less to you now?",
+        },
+        {
+          question: "What is one thing you have learned about yourself from a past relationship?",
+          aux: "This can be romantic, friendship, family, or work-related.",
+        },
+        {
+          question: "What kind of compliment means the most to you?",
+        },
+        {
+          question: "When you are stressed, do you usually want space, help, distraction, or reassurance?",
+        },
+        {
+          question: "What is one belief or opinion you have changed your mind about over time?",
+        },
+        {
+          question: "What makes you feel most at peace?",
+        },
+        {
+          question: "How do you usually show someone that you care about them?",
+        },
+        {
+          question: "What is something that makes you feel instantly connected to another person?",
+        },
+        {
+          question: "What is something that makes you feel distant from someone, even if you like them?",
+        },
+        {
+          question: "How important is it to you that your partner shares your hobbies?",
+        },
+        {
+          question: "How important is it to you that your partner shares your general outlook on life?",
+        },
+        {
+          question: "What is something you think people often misunderstand about you?",
+        },
+        {
+          question: "What is a quality you admire in others that you are still working on yourself?",
+        },
+        {
+          question: "How do you usually respond to conflict: talk it out right away, take time first, avoid it, or something else?",
+        },
+        {
+          question: "What is something you hope your life includes more of in the next few years?",
+        },
+        {
+          question: "What is something you hope your life includes less of in the next few years?",
+        },
+        {
+          question: "What is something you are currently trying to get better at?",
+        },
+        {
+          question: "What is one way you have become more comfortable with yourself as you have gotten older?",
+        },
+        {
+          question: "What is one way dating feels different to you now than it did when you were younger?",
+        },
+        {
+          question: "How much alone time do you need to feel like yourself?",
+        },
+        {
+          question: "What is one thing you would find hard to compromise on in a relationship?",
+        },
+        {
+          question: "What is one thing you used to think was a dealbreaker that might not be anymore?",
+        },
+        {
+          question: "What does loyalty mean to you?",
+        },
+        {
+          question: "What is something that helps you feel safe with another person?",
+        },
+        {
+          question: "How do you feel about taking risks in life?",
+        },
+        {
+          question: "What is something you think is worth waiting for?",
+        },
+        {
+          question: "Do you believe timing is a major part of whether relationships work?",
+        },
+        {
+          question: "What is something you wish more people were honest about when dating?",
+        },
+        {
+          question: "What is a fear you have mostly outgrown?",
+        },
+        {
+          question: "What is a fear you are still working through?",
+        },
+        {
+          question: "What is something you hope a future partner would appreciate about you?",
+        },
+        {
+          question: "When you picture a happy ordinary day with someone, what does it look like?",
+        },
+      ],
     };
 
     const categoryByTag = Object.fromEntries(
