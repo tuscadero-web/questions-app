@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Speed Dating Questions</title>
+
+  <style>
+    /*
+      ==========================
+      Easy configuration section
+      ==========================
+    */
+    :root {
+      --page-bg: #faf8f4;
+      --card-bg: #ffffff;
+      --text-color: #222222;
+      --muted-text-color: #666666;
+
+      --app-max-width: 520px;
+      --app-padding: 22px;
+
+      --title-font-size: clamp(1.45rem, 5vw, 2rem);
+      --question-font-size: clamp(1.45rem, 6vw, 2.15rem);
+      --aux-font-size: clamp(1rem, 6vw, 1.4rem);
+      --counter-font-size: 1rem;
+
+      --button-font-size: clamp(1rem, 8vw, 1.5rem);
+      --button-radius: 18px;
+      --button-min-height: 64px;
+      --button-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+
+      --control-button-bg: #222222;
+      --control-button-text: #ffffff;
+      --control-button-min-height: 54px;
+
+      --safe-bottom-space: max(34px, calc(24px + env(safe-area-inset-bottom)));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--page-bg);
+      color: var(--text-color);
+    }
+
+    button {
+      font: inherit;
+      border: 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible {
+      outline: 4px solid rgba(0, 0, 0, 0.35);
+      outline-offset: 3px;
+    }
+
+    #app {
+      width: 100%;
+      max-width: var(--app-max-width);
+      min-height: 100dvh;
+      margin: 0 auto;
+      padding: var(--app-padding);
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .main-view {
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .prompt-box {
+      padding: 18px;
+      font-size: var(--title-font-size);
+      font-weight: 800;
+    }
+
+    .question-title {
+      background: var(--card-bg);
+      border-radius: 22px;
+      padding: 18px;
+      font-size: var(--title-font-size);
+      font-weight: 800;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .category-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .category-button {
+      width: 100%;
+      min-height: var(--button-min-height);
+      padding: 14px 18px;
+      border-radius: var(--button-radius);
+      background: var(--category-color);
+      color: #ffffff;
+      font-size: var(--button-font-size);
+      font-weight: 800;
+      box-shadow: var(--button-shadow);
+      transition: transform 120ms ease, filter 120ms ease;
+    }
+
+    .category-button:active,
+    .control-button:active {
+      transform: scale(0.98);
+      filter: brightness(0.96);
+    }
+
+    .question-view {
+      justify-content: flex-start;
+    }
+
+    .question-title {
+      color: #ffffff;
+      background: var(--category-color);
+      margin-bottom: 18px;
+    }
+
+    .question-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+      padding: 10px 0 20px;
+    }
+
+    .question-card {
+      background: var(--card-bg);
+      border-radius: 26px;
+      padding: 28px 22px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+    }
+
+    .question-text {
+      margin: 0;
+      font-size: var(--question-font-size);
+      line-height: 1.18;
+      font-weight: 800;
+    }
+
+    .aux-text {
+      margin: 18px 0 0;
+      font-size: var(--aux-font-size);
+      line-height: 1.35;
+      color: var(--muted-text-color);
+      font-style: italic;
+    }
+
+    .counter {
+      font-size: var(--counter-font-size);
+      color: var(--muted-text-color);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1.45fr 1fr;
+      gap: 10px;
+      padding-bottom: var(--safe-bottom-space);
+    }
+
+    .control-button {
+      min-height: var(--control-button-min-height);
+      border-radius: 16px;
+      padding: 10px 12px;
+      background: var(--control-button-bg);
+      color: var(--control-button-text);
+      font-size: 0.98rem;
+      font-weight: 800;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.16);
+    }
+
+    .control-button.secondary {
+      background: #ffffff;
+      color: #222222;
+      border: 2px solid #222222;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <main id="app" aria-live="polite"></main>
+
+  <script>
+    /*
+      Change this to false if you do not want interactions
+      to update the browser's #url-hash.
+    */
+    const ENABLE_HASH_ROUTING = true;
+
+    const categories = [
+      {
+        text: "Getting To Know You...",
+        tag: "introduction",
+        color: "#e68a00"
+      },
+      {
+        text: "Tell Me A Story...",
+        tag: "tell_story",
+        color: "#005ce6"
+      },
+      {
+        text: "Fun and Silly!",
+        tag: "fun_and_silly",
+        color: "#5200cc"
+      },
+      {
+        text: "Going Deep...",
+        tag: "going_deep",
+        color: "#009933"
+      }
+    ];
+
+    /*
+      Replace these test questions with your real questions later.
+
+      Format:
+      {
+        question: "Question text goes here",
+        aux: "Optional auxiliary text goes here"
+      }
+
+      The aux field is optional.
+    */
+    const questions = {
+      introduction: [
+        {
+          question: "What is something small that reliably makes your day better?"
+        },
+        {
+          question: "What is a hobby or interest you wish more people asked you about?"
+        },
+        {
+          question: "What is your ideal low-key weekend?"
+        },
+        {
+          question: "What food could you happily eat several days in a row?"
+        },
+        {
+          question: "What is a place you have visited that you would recommend to almost anyone?"
+        }
+      ],
+
+      tell_story: [
+        {
+          question: "Tell me about a time you got lost.",
+          aux: "Physically, emotionally, or in a very confusing parking garage."
+        },
+        {
+          question: "Tell me about a moment when a stranger was unexpectedly kind to you."
+        },
+        {
+          question: "Tell me about a trip that did not go according to plan."
+        },
+        {
+          question: "Tell me about a time you surprised yourself."
+        },
+        {
+          question: "Tell me about something funny that happened at work, school, or while traveling."
+        }
+      ],
+
+      fun_and_silly: [
+        {
+          question: "If animals could talk, which animal do you think would be the rudest?"
+        },
+        {
+          question: "Would you rather have to sing every time you entered a room or dance every time you left one?",
+          aux: "You may choose the song or dance style."
+        },
+        {
+          question: "What is a completely useless skill you would still enjoy mastering?"
+        },
+        {
+          question: "If you had to compete in an Olympic sport tomorrow, which one would you choose?"
+        },
+        {
+          question: "What is the most ridiculous thing you have a strong opinion about?"
+        }
+      ],
+
+      going_deep: [
+        {
+          question: "What is something you have changed your mind about in the last few years?"
+        },
+        {
+          question: "What kind of person brings out the best in you?"
+        },
+        {
+          question: "What is something you are trying to get better at?"
+        },
+        {
+          question: "What does a good relationship feel like to you?"
+        },
+        {
+          question: "What is a value you hope people notice in how you live?"
+        }
+      ]
+    };
+
+    const categoryByTag = Object.fromEntries(
+      categories.map(category => [category.tag, category])
+    );
+
+    let state;
+    let shuffledIndexesByTag;
+
+    function makeRandomSeed() {
+      if (window.crypto && window.crypto.getRandomValues) {
+        const values = new Uint32Array(1);
+        window.crypto.getRandomValues(values);
+        return values[0] >>> 0;
+      }
+
+      return (Date.now() ^ Math.floor(Math.random() * 0xffffffff)) >>> 0;
+    }
+
+    /*
+      Small seeded RNG.
+      Given the same seed, it will produce the same shuffle order.
+    */
+    function createRng(seed) {
+      let value = seed >>> 0;
+
+      return function rng() {
+        value += 0x6D2B79F5;
+        let result = Math.imul(value ^ (value >>> 15), value | 1);
+        result ^= result + Math.imul(result ^ (result >>> 7), result | 61);
+        return ((result ^ (result >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function buildShuffledIndexes(seed) {
+      const rng = createRng(seed);
+      const result = {};
+
+      for (const category of categories) {
+        const categoryQuestions = questions[category.tag] || [];
+        const indexes = categoryQuestions.map((_, index) => index);
+
+        for (let i = indexes.length - 1; i > 0; i--) {
+          const j = Math.floor(rng() * (i + 1));
+          [indexes[i], indexes[j]] = [indexes[j], indexes[i]];
+        }
+
+        result[category.tag] = indexes;
+      }
+
+      return result;
+    }
+
+    function createInitialState(seed = makeRandomSeed()) {
+      const currentIndexByTag = {};
+
+      for (const category of categories) {
+        currentIndexByTag[category.tag] = 0;
+      }
+
+      return {
+        seed,
+        view: "main",
+        category: null,
+        currentIndexByTag
+      };
+    }
+
+    function sanitizeState(possibleState) {
+      if (!possibleState || typeof possibleState !== "object") {
+        return null;
+      }
+
+      const seed = Number(possibleState.seed);
+      if (!Number.isFinite(seed)) {
+        return null;
+      }
+
+      const cleaned = createInitialState(seed >>> 0);
+
+      if (possibleState.currentIndexByTag && typeof possibleState.currentIndexByTag === "object") {
+        for (const category of categories) {
+          const tag = category.tag;
+          const total = (questions[tag] || []).length;
+          const rawIndex = Number(possibleState.currentIndexByTag[tag]);
+
+          if (Number.isFinite(rawIndex) && total > 0) {
+            cleaned.currentIndexByTag[tag] = positiveModulo(Math.trunc(rawIndex), total);
+          } else {
+            cleaned.currentIndexByTag[tag] = 0;
+          }
+        }
+      }
+
+      if (possibleState.view === "question" && categoryByTag[possibleState.category]) {
+        cleaned.view = "question";
+        cleaned.category = possibleState.category;
+      } else {
+        cleaned.view = "main";
+        cleaned.category = null;
+      }
+
+      return cleaned;
+    }
+
+    function positiveModulo(number, divisor) {
+      return ((number % divisor) + divisor) % divisor;
+    }
+
+    function encodeStateToHash(appState) {
+      const compactState = {
+        seed: appState.seed,
+        view: appState.view,
+        category: appState.category,
+        currentIndexByTag: appState.currentIndexByTag
+      };
+
+      return "#state=" + encodeURIComponent(JSON.stringify(compactState));
+    }
+
+    function decodeStateFromHash() {
+      const hash = window.location.hash.slice(1);
+
+      if (!hash.startsWith("state=")) {
+        return null;
+      }
+
+      try {
+        const json = decodeURIComponent(hash.slice("state=".length));
+        return JSON.parse(json);
+      } catch {
+        return null;
+      }
+    }
+
+    function replaceHashFromState() {
+      if (!ENABLE_HASH_ROUTING) return;
+
+      const newHash = encodeStateToHash(state);
+      const newUrl = window.location.pathname + window.location.search + newHash;
+
+      if (window.location.hash !== newHash) {
+        window.history.replaceState(null, "", newUrl);
+      }
+    }
+
+    function pushHashFromState() {
+      if (!ENABLE_HASH_ROUTING) return;
+
+      const newHash = encodeStateToHash(state);
+
+      if (window.location.hash !== newHash) {
+        window.location.hash = newHash;
+      }
+    }
+
+    function commitState() {
+      render();
+      pushHashFromState();
+    }
+
+    function showMainView() {
+      state.view = "main";
+      state.category = null;
+      commitState();
+    }
+
+    function showQuestionView(tag) {
+      state.view = "question";
+      state.category = tag;
+      commitState();
+    }
+
+    function goToNextQuestion() {
+      const tag = state.category;
+      const total = (questions[tag] || []).length;
+
+      if (total > 0) {
+        state.currentIndexByTag[tag] = positiveModulo(
+          state.currentIndexByTag[tag] + 1,
+          total
+        );
+      }
+
+      commitState();
+    }
+
+    function goToPreviousQuestion() {
+      const tag = state.category;
+      const total = (questions[tag] || []).length;
+
+      if (total > 0) {
+        state.currentIndexByTag[tag] = positiveModulo(
+          state.currentIndexByTag[tag] - 1,
+          total
+        );
+      }
+
+      commitState();
+    }
+
+    function render() {
+      const app = document.getElementById("app");
+      app.innerHTML = "";
+
+      if (state.view === "question" && categoryByTag[state.category]) {
+        renderQuestionView(app);
+      } else {
+        renderMainView(app);
+      }
+    }
+
+    function renderMainView(app) {
+      app.className = "main-view";
+
+      const promptBox = document.createElement("div");
+      promptBox.className = "prompt-box";
+      promptBox.textContent = "Select a Question Category:";
+
+      const categoryList = document.createElement("div");
+      categoryList.className = "category-list";
+
+      for (const category of categories) {
+        const button = document.createElement("button");
+        button.className = "category-button";
+        button.textContent = category.text;
+        button.style.setProperty("--category-color", category.color);
+        button.addEventListener("click", () => showQuestionView(category.tag));
+
+        categoryList.appendChild(button);
+      }
+
+      app.appendChild(promptBox);
+      app.appendChild(categoryList);
+    }
+
+    function renderQuestionView(app) {
+      app.className = "question-view";
+
+      const category = categoryByTag[state.category];
+      const tag = category.tag;
+      const categoryQuestions = questions[tag] || [];
+      const shuffledIndexes = shuffledIndexesByTag[tag] || [];
+      const total = categoryQuestions.length;
+      const currentPosition = total > 0
+        ? positiveModulo(state.currentIndexByTag[tag], total)
+        : 0;
+
+      state.currentIndexByTag[tag] = currentPosition;
+
+      const originalQuestionIndex = shuffledIndexes[currentPosition];
+      const questionObject = categoryQuestions[originalQuestionIndex] || {
+        question: "No questions have been added for this category yet.",
+        aux: "Add questions in the questions object inside the JavaScript."
+      };
+
+      const title = document.createElement("div");
+      title.className = "question-title";
+      title.textContent = category.text;
+      title.style.setProperty("--category-color", category.color);
+
+      const questionArea = document.createElement("section");
+      questionArea.className = "question-area";
+
+      const questionCard = document.createElement("div");
+      questionCard.className = "question-card";
+
+      const questionText = document.createElement("p");
+      questionText.className = "question-text";
+      questionText.textContent = questionObject.question;
+
+      questionCard.appendChild(questionText);
+
+      if (questionObject.aux) {
+        const auxText = document.createElement("p");
+        auxText.className = "aux-text";
+        auxText.textContent = questionObject.aux;
+        questionCard.appendChild(auxText);
+      }
+
+      const counter = document.createElement("div");
+      counter.className = "counter";
+      counter.textContent = total > 0
+        ? `${currentPosition + 1}/${total}`
+        : "0/0";
+
+      questionArea.appendChild(questionCard);
+      questionArea.appendChild(counter);
+
+      const controls = document.createElement("nav");
+      controls.className = "controls";
+      controls.setAttribute("aria-label", "Question navigation");
+
+      const prevButton = document.createElement("button");
+      prevButton.className = "control-button";
+      prevButton.textContent = "Prev";
+      prevButton.addEventListener("click", goToPreviousQuestion);
+
+      const backButton = document.createElement("button");
+      backButton.className = "control-button secondary";
+      backButton.textContent = "Back to Categories";
+      backButton.addEventListener("click", showMainView);
+
+      const nextButton = document.createElement("button");
+      nextButton.className = "control-button";
+      nextButton.textContent = "Next";
+      nextButton.addEventListener("click", goToNextQuestion);
+
+      controls.appendChild(prevButton);
+      controls.appendChild(backButton);
+      controls.appendChild(nextButton);
+
+      app.appendChild(title);
+      app.appendChild(questionArea);
+      app.appendChild(controls);
+    }
+
+    function initializeApp() {
+      if (ENABLE_HASH_ROUTING) {
+        state = sanitizeState(decodeStateFromHash()) || createInitialState();
+      } else {
+        state = createInitialState();
+      }
+
+      shuffledIndexesByTag = buildShuffledIndexes(state.seed);
+
+      render();
+      replaceHashFromState();
+
+      if (ENABLE_HASH_ROUTING) {
+        window.addEventListener("hashchange", () => {
+          const decodedState = sanitizeState(decodeStateFromHash());
+
+          if (!decodedState) {
+            return;
+          }
+
+          state = decodedState;
+          shuffledIndexesByTag = buildShuffledIndexes(state.seed);
+          render();
+        });
+      }
+    }
+
+    initializeApp();
+  </script>
+</body>
+</html>
